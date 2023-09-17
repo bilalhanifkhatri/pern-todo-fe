@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react";
 import EditTodo from "./EditTodo";
+import { useSelector } from "react-redux";
 
 const ListTodos = () => {
   const [data, setData] = useState([]);
+  const baseUrl = useSelector((state) => state.baseUrl);
   const fetchTodos = async () => {
     try {
-      const res = await fetch("http://localhost:5000/todos");
+      const res = await fetch(`${baseUrl}/todos`);
       const fetchData = await res.json();
       setData(fetchData);
     } catch (error) {
@@ -14,7 +16,7 @@ const ListTodos = () => {
   };
   const deleteATodo = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/delete-todo/${id}`, {
+      const res = await fetch(`${baseUrl}/delete-todo/${id}`, {
         method: "DELETE",
       });
       console.log(res);
@@ -30,6 +32,7 @@ const ListTodos = () => {
   };
   useEffect(() => {
     fetchTodos();
+    // eslint-disable-next-line
   }, []);
 
   return (

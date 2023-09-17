@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from "react";
+import { useSelector } from "react-redux";
 
 const InputTodo = () => {
   const [description, setDescription] = useState("");
+  const baseUrl = useSelector((state) => state.baseUrl);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const body = { description };
-      await fetch("http://localhost:5000/create-todo", {
+      await fetch(`${baseUrl}/create-todo`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

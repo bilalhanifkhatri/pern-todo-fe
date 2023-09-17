@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
+import { useSelector } from "react-redux";
 
 const EditTodo = ({ todo }) => {
   const [input, setInput] = useState(todo?.description || "");
+  const baseUrl = useSelector((state) => state.baseUrl);
   const handleSaveChanges = async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:5000/update-todo/${todo?.todo_id}`, {
+    await fetch(`${baseUrl}/update-todo/${todo?.todo_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
